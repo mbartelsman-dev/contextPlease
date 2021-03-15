@@ -1,0 +1,26 @@
+{
+  "name": "Root menu",
+  "entries": [
+    {
+      "name": "submenu",
+      "entries": [
+        {
+          "name": "sub-entry 1",
+          "cmd": "echo sub-entry 1"
+        },
+        {
+          "name": "sub-entry 2",
+          "cmd": "echo sub-entry 2"
+        }
+      ]
+    },
+    {
+      "name": "entry 1",
+      "cmd": "echo entry 1"
+    },
+    {
+      "name": "entry 2",
+      "cmd": "echo entry 2"
+    }
+  ]
+}
