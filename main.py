@@ -1,6 +1,7 @@
 import json
 import argparse
 from typing import Any
+from entry import Root
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -33,14 +34,8 @@ def parse_json_input(file_path: str) -> Any:
     return data
 
 
-def validate_input(obj):
-    if obj['entries'] is not None:
-        pass
-    elif obj['cmd'] is not None:
-        pass
-    else:
-        raise Exception("Root object must have either entries or a command")
-    pass
+def build_input(obj):
+    return Root.build(obj)
 
 
 if __name__ == '__main__':
@@ -51,6 +46,6 @@ if __name__ == '__main__':
     args = parse_arguments()
     obj = parse_json_input(args.input[0])
     print(obj)
-    validate_input(obj)
+    obj = build_input(obj)
     print(args.input)
     print(args.output)
