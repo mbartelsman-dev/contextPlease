@@ -9,6 +9,9 @@ class Target:
         """
         self.value = value
 
+    def to_path(self):
+        return "HKEY_CLASSES_ROOT\\" + self.value
+
 
 class Background(Target):
     def __init__(self):

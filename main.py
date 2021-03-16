@@ -1,10 +1,14 @@
-import json
 import argparse
-from typing import Any
-from entry import Root
+from typing import Optional
+
+from json_parser import *
 
 
 def parse_arguments() -> argparse.Namespace:
+    """
+    Sets up argument parsing for the main program
+    :return: A namespace object containing the read arguments and flags
+    """
     parser = argparse.ArgumentParser(description='Convert a JSON-formatted file into a registry definition for a '
                                                  'context menu')
     parser.add_argument(
@@ -18,24 +22,31 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         '-o',
         metavar='OUTPUT',
-        default='output.reg',
+        default=None,
         dest='output',
         action='store',
-        type=str,
+        type=Optional[str],
         nargs=1,
-        help='Path to where the .reg file should be saved to, defaults to output.reg'
+        help='Base path for output files, defaults to same path as INPUT'
     )
-    return parser.parse_args()
+
+    args = parser.parse_args()
+
+    if args.output[0] is None:
+        args.output[0] = args.input[0]
+
+    return args
 
 
-def parse_json_input(file_path: str) -> Any:
-    with open(file_path) as file:
-        data = json.load(file)
-    return data
+def main():
+    args = parse_arguments()
 
-
-def build_input(obj):
-    return Root.build(obj)
+    path = Path(args.input[0])
+    print(path)
+    data = read_file(path)
+    obj = parse_data(data)
+    print(args.input)
+    print(args.output)
 
 
 if __name__ == '__main__':
@@ -43,9 +54,4 @@ if __name__ == '__main__':
     This tool allows the user to convert a simple JSON definition file into a context menu entry
     Entry
     """
-    args = parse_arguments()
-    obj = parse_json_input(args.input[0])
-    print(obj)
-    obj = build_input(obj)
-    print(args.input)
-    print(args.output)
+    main()
