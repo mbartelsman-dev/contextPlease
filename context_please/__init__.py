@@ -1,7 +1,7 @@
 import argparse
 from typing import Optional
 
-from json_parser import *
+from context_please.json_parser import *
 
 
 def parse_arguments() -> argparse.Namespace:

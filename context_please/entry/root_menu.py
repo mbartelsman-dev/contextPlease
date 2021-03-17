@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, Union
 
-import entry
+from context_please import entry
+from context_please.registry_handle import RegistryHandle
 
 
 class RootMenu(entry.Root, entry.Menu):
@@ -20,7 +21,6 @@ class RootMenu(entry.Root, entry.Menu):
 
     @staticmethod
     def from_obj(obj: dict) -> 'RootMenu':
-
         entries = []
         for e in obj.pop("entries"):
             entries.append(entry.Entry.from_obj(e))
@@ -29,3 +29,7 @@ class RootMenu(entry.Root, entry.Menu):
             raise Exception("obj should not have entries at this point. Investigate.")
 
         return RootMenu(entries=entries, **obj)
+
+    def build_registry_handle(self, path: Union[str, list[str], None] = None) -> RegistryHandle:
+        path = [self.target.to_path(), "shell", self.name]
+        return super(RootMenu, self).build_registry_handle(path)

@@ -1,6 +1,7 @@
-from typing import Optional, Any
+from typing import Optional, Any, Union
 
-import entry
+from context_please import entry
+from context_please.registry_handle import RegistryHandle
 
 
 class Item(entry.Entry):
@@ -21,3 +22,9 @@ class Item(entry.Entry):
     @staticmethod
     def from_obj(obj: Any) -> 'Item':
         return Item(**obj)
+
+    def build_registry_handle(self, path: Union[str, list[str]]) -> RegistryHandle:
+        handle = super(Item, self).build_registry_handle(path)
+        handle.add_command(self.cmd)
+
+        return handle

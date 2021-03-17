@@ -1,8 +1,8 @@
 from sys import stderr
 from typing import Any, Optional
 
-import entry
-from target import Target
+from context_please import entry
+from context_please.target import Target
 
 
 class Root(object):
@@ -37,6 +37,3 @@ class Root(object):
             res = entry.RootItem.from_obj(obj)
 
         return res
-
-    def build_reg(self):
-        pass

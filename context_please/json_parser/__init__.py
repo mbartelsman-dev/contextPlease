@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from entry import Root
+from context_please.entry import Root
 
 
 def read_file(file_path: Path) -> Any:

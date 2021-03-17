@@ -1,9 +1,10 @@
 from pathlib import PurePath
 from sys import stderr
-from typing import Optional, Any
+from typing import Optional, Any, Union
 
-import entry
-from position import Position
+from context_please import entry
+from context_please.position import Position
+from context_please.registry_handle import RegistryHandle
 
 
 class Entry(object):
@@ -48,5 +49,19 @@ class Entry(object):
 
         return res
 
-    def build_reg(self):
-        pass
+    def build_registry_handle(self, path: Union[str, list[str]]) -> RegistryHandle:
+        entries = {"MUIVerb": self.text}
+
+        if self.icon is not None:
+            entries["Icon"] = self.icon
+
+        if self.pos is not None:
+            entries["Position"] = self.pos
+
+        handle = RegistryHandle(
+            path=path,
+            entries=entries,
+            subkeys=[]
+        )
+
+        return handle
