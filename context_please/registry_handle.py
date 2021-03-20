@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Optional, Union
 
 
@@ -24,7 +25,7 @@ class RegistryHandle(object):
 
     @property
     def path(self):
-        return self.path
+        return self._path
 
     @path.setter
     def path(self, path: Union[str, list[str]]):
@@ -42,3 +43,31 @@ class RegistryHandle(object):
                 }
             )
         )
+
+    def build_reg_lines(self, file: list[str]) -> list[str]:
+        # file.append("; Delete old entry")
+        # file.append("-[" + self.path + "]")
+
+        # file.append("; Create new entry")
+        file.append("[" + self.path + "]")
+        for k, v in self.entries.items():
+            print("{" + str(type(k)) + ", " + str(type(v)) + "}")
+            print("{" + str(k) + ", " + str(v) + "}\n")
+            file.append('"' + k + '"="' + v + '"')
+
+        for k in self.subkeys:
+            k.build_reg_lines(file)
+
+        return file
+
+    def write_reg_installer(self, output: Path):
+        lines = self.build_reg_lines(["Windows Registry Editor Version 5.00"])
+
+        with open(str(output) + "_install.reg", "w") as file:
+            file.write("\n".join(lines))
+
+    def write_reg_uninstaller(self, output: Path):
+        lines = ["Windows Registry Editor Version 5.00", "[-" + self.path + "]"]
+
+        with open(str(output) + "_uninstall.reg", "w") as file:
+            file.write("\n".join(lines))

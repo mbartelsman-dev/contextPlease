@@ -1,5 +1,8 @@
 {
-  "name": "Root menu",
+  "name": "test",
+  "target": "Directory\\Background",
+  "text": "TestSuite",
+  "icon": "D:\\Collections\\Icons\\dataDisk\\Papirus-Team-Papirus-Places-Folder-blue-activities.ico",
   "entries": [
     {
       "name": "submenu",

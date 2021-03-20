@@ -1,5 +1,4 @@
 import argparse
-from typing import Optional
 
 from context_please.json_parser import *
 
@@ -25,7 +24,7 @@ def parse_arguments() -> argparse.Namespace:
         default=None,
         dest='output',
         action='store',
-        type=Optional[str],
+        type=str,
         nargs=1,
         help='Base path for output files, defaults to same path as INPUT'
     )
@@ -40,13 +39,15 @@ def parse_arguments() -> argparse.Namespace:
 
 def main():
     args = parse_arguments()
-
-    path = Path(args.input[0])
-    print(path)
-    data = read_file(path)
-    obj = parse_data(data)
     print(args.input)
     print(args.output)
+
+    path = Path(args.input[0])
+    data = read_file(path)
+    obj = parse_data(data)
+    reg = obj.build_registry_handle()
+    reg.write_reg_installer(args.output[0])
+    reg.write_reg_uninstaller(args.output[0])
 
 
 if __name__ == '__main__':

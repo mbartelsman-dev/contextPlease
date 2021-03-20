@@ -7,6 +7,7 @@ class Target:
         :type value: str
         :rtype: Target
         """
+        print("VALUE IS: " + value)
         self.value = value
 
     def to_path(self):
