@@ -46,23 +46,10 @@ namespace ContextPlease2
         /// <param name="makeUninstaller">Should a removal registry script be generated?</param>
         public Configuration(
             string inputPath,
-            string? baseOutputPath,
+            string baseOutputPath,
             bool keepOld,
             bool makeUninstaller)
         {
-
-            baseOutputPath ??= Path.GetFileNameWithoutExtension(inputPath);
-
-            if (Path.EndsInDirectorySeparator(baseOutputPath))
-            {
-                baseOutputPath = Path.Combine(baseOutputPath, Path.GetFileNameWithoutExtension(inputPath));
-            }
-
-            if (Path.GetExtension(baseOutputPath) == ".reg")
-            {
-                baseOutputPath = Path.GetFileNameWithoutExtension(baseOutputPath);
-            }
-            
             InputPath = inputPath;
             BaseOutputPath = baseOutputPath;
             KeepOld = keepOld;

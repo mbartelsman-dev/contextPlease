@@ -21,18 +21,10 @@ namespace ContextPlease2
         {
             try
             {
-                Configuration configuration = ReadArguments(input, output, keepOld, makeUninstaller);
+                Configuration config = ReadArguments(input, output, keepOld, makeUninstaller);
+                ContextPlease contextPlease = new(config);
                 
-                ContextEntryModel menuModel = new(configuration);
-                menuModel.ReadInput();
-                
-                var registryHandle = menuModel.RegistryHandle;
-                registryHandle.WriteInstaller(configuration.InstallerPath);
-                
-                if (configuration.MakeUninstaller)
-                {
-                    registryHandle.WriteRemover(configuration.UninstallerPath);
-                }
+                contextPlease.Run();
             }
             catch (Exception e)
             {
@@ -51,7 +43,7 @@ namespace ContextPlease2
         /// <returns>Settings object with the program settings</returns>
         /// <exception cref="ArgumentNullException">If input is null</exception>
         /// <exception cref="FileNotFoundException">If input file cannot be found</exception>
-        static Configuration ReadArguments(
+        private static Configuration ReadArguments(
             string input,
             string? output,
             bool keepOld,
@@ -71,7 +63,26 @@ namespace ContextPlease2
                     message: $"Input file could not be found: {input}");
             }
 
+            output = NormalizeOutputWith(output, input);
+
             return new Configuration(input, output, keepOld, makeUninstaller);
+        }
+
+        private static string NormalizeOutputWith(string? output, string input)
+        {
+            output ??= Path.GetFileNameWithoutExtension(input);
+            
+            if (Path.EndsInDirectorySeparator(output))
+            {
+                output = Path.Combine(output, Path.GetFileNameWithoutExtension(input));
+            }
+
+            if (Path.GetExtension(output) == ".reg")
+            {
+                output = Path.GetFileNameWithoutExtension(output);
+            }
+
+            return output;
         }
     }
 }
