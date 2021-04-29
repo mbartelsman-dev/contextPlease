@@ -18,9 +18,12 @@ Ker ->  Jso ++: Read model file
 Jso ->  Sys ++: Open input file
 Sys --> Jso --: File data
 Jso ->  Jso: Deserialize data
-Ker ->  Jso: To Registry model
-Jso ->  Reg --: <<create>>
+Jso --> Ker: JsonModel
+Ker ->  Reg: From JsonModel
 activate Reg
+Reg ->  Jso: Get data
+Jso --> Reg: Data
+deactivate Jso
 Reg ->  Reg: Self assemble
 Ker ->  Con: Get output path
 Con --> Ker --: Path
