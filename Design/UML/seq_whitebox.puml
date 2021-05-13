@@ -1,0 +1,36 @@
+@startuml
+actor       User          as Usr
+participant Program       as Int
+participant Configuration as Con
+participant ContextPlease as Ker
+participant JsonModel     as Jso
+participant RegistryModel as Reg
+boundary    System        as Sys
+
+Usr ->  Int ++: Command line arguments
+Int ->  Int: Validate input
+Int ->  Con ++: Build configuration
+Con --> Int: Configuration
+Int ->  Ker ++: Start program
+Ker ->  Con: Get input path
+Con --> Ker: Path
+Ker ->  Jso ++: Read model file
+Jso ->  Sys ++: Open input file
+Sys --> Jso --: File data
+Jso ->  Jso: Deserialize data
+Jso --> Ker: JsonModel
+Ker ->  Reg: From JsonModel
+activate Reg
+Reg ->  Jso: Get data
+Jso --> Reg: Data
+deactivate Jso
+Reg ->  Reg: Self assemble
+Ker ->  Con: Get output path
+Con --> Ker --: Path
+Ker ->  Reg: Serialize
+Reg ->  Sys ++: Write model to file
+Sys --> Reg --: Operation result
+Reg --> Ker --: Operation result
+Ker --> Int --: Operation result
+Int ->  Usr --: Inform of result
+@enduml

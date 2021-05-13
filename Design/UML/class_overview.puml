@@ -1,0 +1,7 @@
+@startuml
+class   Program
+class   ContextPlease
+class   Configuration
+class   JsonModel
+class   RegistryModel
+@enduml

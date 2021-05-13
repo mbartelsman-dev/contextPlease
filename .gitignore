@@ -1,0 +1,12 @@
+bin/
+obj/
+/packages/
+/_ReSharper.Caches/
+.idea/shelf/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/modules.xml
+.idea/gradle.xml
+.idea/libraries/*.xml
+riderModule.iml
+**.iws

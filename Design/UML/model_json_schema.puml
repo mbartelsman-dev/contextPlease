@@ -1,0 +1,62 @@
+﻿@startjson
+[
+    {
+        "targets": ["target A", "target B"],
+        "menus": [
+            {
+                "name": "Menu name",
+                "menus": [],
+                "items": [
+                    {
+                        "name": "Item name 1",
+                        "command": "exec command -a",
+                        "icon": "/path/to/icon",
+                        "position": "top",
+                        "hasSeparator": false
+                    },
+                    {
+                        "name": "Item name 2",
+                        "command": "exec command -b",
+                        "icon": "/path/to/icon",
+                        "position": null,
+                        "hasSeparator": false
+                    }
+                ],
+                "icon": "/path/to/icon",
+                "position": "bottom",
+                "hasSeparator": true
+            }
+        ],
+        "items": [
+            {
+                "name": "Item name 1",
+                "command": "exec command -a",
+                "icon": "/path/to/icon",
+                "position": "top",
+                "hasSeparator": false
+            },
+            {
+                "name": "Item name 2",
+                "command": "exec command -b",
+                "icon": "/path/to/icon",
+                "position": null,
+                "hasSeparator": false
+            }
+        ]
+    },
+    {
+        "targets": ["target C"],
+        "menus": [],
+        "items": [
+            {
+                "name": "Item name 3",
+                "command": "exec command -a",
+                "icon": "/path/to/icon",
+                "position": "top",
+                "hasSeparator": false
+            }
+        ]
+    }
+]
+    
+@endjson

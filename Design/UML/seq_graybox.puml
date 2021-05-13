@@ -1,0 +1,18 @@
+@startuml
+actor       User        as Usr
+participant Interface   as Int
+participant Kernel      as Ker
+boundary    System      as Sys
+
+Usr -> Int: Command line arguments
+Int -> Int: Validate input
+Int -> Usr: Inform user of status
+Int -> Ker: Arguments
+Ker -> Ker: Build configuration
+Ker -> Ker: Read model file
+Ker -> Ker: Build registry model
+Ker -> Sys: Write model to file
+Sys -> Ker: Operation result
+Ker -> Int: Operation result
+Int -> Usr: Operation result
+@enduml
