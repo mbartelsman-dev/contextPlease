@@ -1,12 +1,24 @@
-﻿using System.IO;
-
-namespace ContextPlease2
+﻿namespace ContextPlease2
 {
     /// <summary>
     /// Primary class for ContextPlease, hosting the high level functionality of the program 
     /// </summary>
     public class ContextPlease
     {
+        /// <summary>
+        /// Produces the name of the program
+        /// </summary>
+        public static string Name => "Context Please";
+        
+        /// <summary>
+        /// Returns the current version of the program
+        /// </summary>
+        public static string Version => "v2.0.0";
+        
+        /// <summary>
+        /// Produces a link to the repository for the program
+        /// </summary>
+        public static string Link => "https://github.com/mbartelsman-dev/contextPlease";
         private Configuration Config { get; }
         
         /// <summary>
@@ -23,10 +35,10 @@ namespace ContextPlease2
         /// </summary>
         public void Run()
         {
-            JsonModel jsonModel = JsonModel
+            JsonModel.JsonModel jsonModel = JsonModel.JsonModel
                 .FromFile(Config.InputPath);
             
-            RegistryModel registryModel = RegistryModel
+            RegistryModel.RegistryModel registryModel = RegistryModel.RegistryModel
                 .FromJsonModel(jsonModel);
 
             registryModel
